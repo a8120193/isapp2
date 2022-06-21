@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="../aandd.js"></script>
+    <script type="text/javascript" src="../jquery.min.js"></script>
+    <script>
+        $().ready(function () {
+            init();
+        });
+        function init() {
+            var username = sessionStorage.getItem('username');
+            document.getElementById('turn').innerHTML = username + 'さんの番です';
+            sessionStorage.setItem('username', username);
+
+        }
+        function runButtonPressed() {
+            location.href = ``;
+        }
+    </script>
+</head>
+
+<body>
+    <p id="turn"></p>
+    <input id="tf2" type="textfield">
+    <button onclick="runButtonPressed()">入力</button>
+</body>
+
+</html>
