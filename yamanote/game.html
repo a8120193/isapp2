@@ -10,7 +10,6 @@
 
         $(document).ready(function () {
             id2();
-            init();
         });
 
         async function id2() {
@@ -22,11 +21,10 @@
             var sql = `insert ignore into Players values('${id}', '${name}')`;
             var objects = await osql.connect(sql);
 
-            var username = sessionStorage.getItem('username');
-            document.getElementById('turn').innerHTML = name + 'さんの番です';
-            sessionStorage.setItem('username', username);
 
+            document.getElementById('turn').innerHTML = name + 'さんの番です';
         }
+
         function runButtonPressed() {
             location.href = ``;
         }
