@@ -3,15 +3,27 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="../aandd.js"></script>
-    <script type="text/javascript" src="../jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/osql.js"></script>
     <script>
-        $().ready(function () {
+        osql.requireLogin();
+
+        $(document).ready(function () {
+            id2();
             init();
         });
-        function init() {
+
+        async function id2() {
+            var me = await osql.getMe();
+            console.log(me);
+
+            var id = me.id;
+            var name = me.fname + ' ' + me.lname;
+            var sql = `insert ignore into Players values('${id}', '${name}')`;
+            var objects = await osql.connect(sql);
+
             var username = sessionStorage.getItem('username');
-            document.getElementById('turn').innerHTML = username + 'さんの番です';
+            document.getElementById('turn').innerHTML = name + 'さんの番です';
             sessionStorage.setItem('username', username);
 
         }
