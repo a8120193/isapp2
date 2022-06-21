@@ -25,8 +25,33 @@
             document.getElementById('turn').innerHTML = name + 'さんの番です';
         }
 
-        function runButtonPressed() {
-            location.href = ``;
+        async function runButtonPressed() {
+            var me = await osql.getMe();
+            console.log(me);
+
+            var gameid = 1//sessionStorage.getItem('gameid');
+            var playerid = me.id
+            var orderid = 1//sessionStorage.getItem('orderid');
+            var content = document.getElementById('tf2').value;
+            var sql = `insert into Item (gameid, playerid, orderid, content) values ("${gameid}", "${playerid}", "${orderid}", "${content}");`;
+            var objects = await osql.connect(sql);
+
+            //テーブルを表示させる
+            var sql2 = `select * from Item`;
+            var objects2 = await osql.connect(sql2);
+            var html = '';
+            html = html + '<table border = "1">';
+            for (var i = 0; i < objects2.length; i++) {
+                var object2 = objects2[i];
+                html = html + '<tr>';
+                html = html + '<td>' + object2.playerid + '</td>';
+                //html = html + '<td>' + object2.orderid + '</td>';
+                html = html + '<td>' + object2.content + '</td>';
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('result').innerHTML = html;
+
         }
     </script>
 </head>
@@ -35,6 +60,7 @@
     <p id="turn"></p>
     <input id="tf2" type="textfield">
     <button onclick="runButtonPressed()">入力</button>
+    <p id='result'></p>
 </body>
 
 </html>
