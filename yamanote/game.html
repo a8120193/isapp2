@@ -38,7 +38,7 @@
             var gameid = 1//sessionStorage.getItem('gameid');
             var playerid = me.id
             var turnid = 1//sessionStorage.getItem('turnid');
-            var content = document.getElementById('tf2').value; S
+            var content = document.getElementById('tf2').value;
             var sql = `insert into Items (gameid, playerid, turn, content) values ("${gameid}", "${playerid}", "${turn}", "${content}");`;
             var objects = await osql.connect(sql);
 
