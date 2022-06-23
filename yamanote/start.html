@@ -48,6 +48,8 @@
             var sql2 = `select * from Game`;
             var objects2 = await osql.connect(sql2);
 
+            var sql4 = `create table Item`;
+
             var object2 = objects2[objects2.length - 1];
             var gameid = object2.gameid;
             sessionStorage.setItem('gameid', gameid);
@@ -56,7 +58,21 @@
 
 
         async function runButtonPressedB() {
+            var gameid_input = document.getElementById('tf2').value;
 
+            var me = await osql.getMe();
+            console.log(me);
+            var sql2 = `select * from Game`;
+            var objects2 = await osql.connect(sql2);
+            var object2 = objects2[objects2.length - 1];
+
+            var gameid = object2.gameid;
+            var playerid = me.id;
+
+            var sql = `insert into G_P (gameid, playerid) values (${gameid}, "${playerid}")`;
+            var objects = await osql.connect(sql);
+            var gameid = gameid_input;
+            sessionStorage.setItem('gameid', gameid);
             location.href = `waiting.html`;
         }
 
@@ -67,6 +83,8 @@
 <body>
     <h1>スタート画面</h1>
     <button onclick="runButtonPressedA()">グループを作成する</button>
+    <br>
+    <input id="tf2" type="textfield">
     <button onclick="runButtonPressedB()">グループに入る</button>
     <p id='result'></p>
 </body>
