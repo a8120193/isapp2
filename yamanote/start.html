@@ -42,13 +42,11 @@
         };
 
         async function runButtonPressedA() {
-            var turn = 0;
-            var sql = `insert into Game (turn) values ("${turn}")`;
+            //var turn = 0;
+            var sql = `insert into Game () values ()`;
             var objects = await osql.connect(sql);
-
-
+            var gameid;
             sessionStorage.setItem('id', gameid);
-
 
             location.href = `waiting.html`;
         }
