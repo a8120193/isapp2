@@ -22,6 +22,8 @@
             var name = me.fname + ' ' + me.lname;
             var sql = `insert ignore into Players values('${id}', '${name}')`;
             var objects = await osql.connect(sql);
+
+            document.getElementById('welcome').innerHTML = 'ここのゲームIDは' + gameid + 'です';
         };
 
 
@@ -32,6 +34,7 @@
 </head>
 
 <body>
+    <p id="welcome"> </p>
     <p>グループメンバーの参加を待っています</p>
     <button onclick="runButtonPressed()">開始</button>
 </body>
