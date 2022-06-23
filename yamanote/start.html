@@ -45,9 +45,11 @@
             //var turn = 0;
             var sql = `insert into Game () values ()`;
             var objects = await osql.connect(sql);
-            var gameid;
+            var sql2 = `select * from Game`;
+            var objects2 = await osql.connect(sql2);
+            var object2 = objects2[objects2.length - 1];
+            var gameid = object2.gameid;
             sessionStorage.setItem('gameid', gameid);
-
             location.href = `waiting.html`;
         }
 
