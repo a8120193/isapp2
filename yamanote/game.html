@@ -27,7 +27,7 @@
             document.getElementById('turn1').innerHTML = name + 'さんの番です';
         }
 
-        var turn = 1;
+        var turn = 0;
 
         async function runButtonPressed() {
             turn = turn + 1;
@@ -38,7 +38,7 @@
             var gameid = 1//sessionStorage.getItem('gameid');
             var playerid = me.id
             var turnid = 1//sessionStorage.getItem('turnid');
-            var content = document.getElementById('tf2').value; S
+            var content = document.getElementById('tf2').value;
             var sql = `insert into Items (gameid, playerid, turn, content) values ("${gameid}", "${playerid}", "${turn}", "${content}");`;
             var objects = await osql.connect(sql);
 
@@ -47,6 +47,11 @@
             var objects2 = await osql.connect(sql2);
             var html = '';
             html = html + '<table border = "1">';
+            html = html + '<tr>';
+            html = html + '<td>' + 'playerid' + '</td>';
+            html = html + '<td>' + 'turn' + '</td>';
+            html = html + '<td>' + 'content' + '</td>';
+            html = html + '</tr>';
             for (var i = 0; i < objects2.length; i++) {
                 var object2 = objects2[i];
                 html = html + '<tr>';
