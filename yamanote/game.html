@@ -12,6 +12,7 @@
             id2();
         });
 
+
         async function id2() {
             var me = await osql.getMe();
             console.log(me);
@@ -22,22 +23,27 @@
             var objects = await osql.connect(sql);
 
 
-            document.getElementById('turn').innerHTML = name + 'さんの番です';
+
+            document.getElementById('turn1').innerHTML = name + 'さんの番です';
         }
 
+        var turn = 1;
+
         async function runButtonPressed() {
+            turn = turn + 1;
+
             var me = await osql.getMe();
             console.log(me);
 
             var gameid = 1//sessionStorage.getItem('gameid');
             var playerid = me.id
             var turnid = 1//sessionStorage.getItem('turnid');
-            var content = document.getElementById('tf2').value;
-            var sql = `insert into Items (gameid, playerid, turnid, content) values ("${gameid}", "${playerid}", "${orderid}", "${content}");`;
+            var content = document.getElementById('tf2').value; S
+            var sql = `insert into Items (gameid, playerid, turn, content) values ("${gameid}", "${playerid}", "${turn}", "${content}");`;
             var objects = await osql.connect(sql);
 
             //テーブルを表示させる
-            var sql2 = `select * from Item`;
+            var sql2 = `select * from Items`;
             var objects2 = await osql.connect(sql2);
             var html = '';
             html = html + '<table border = "1">';
@@ -45,21 +51,27 @@
                 var object2 = objects2[i];
                 html = html + '<tr>';
                 html = html + '<td>' + object2.playerid + '</td>';
-                //html = html + '<td>' + object2.turnid + '</td>';
+                html = html + '<td>' + object2.turn + '</td>';
                 html = html + '<td>' + object2.content + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
 
+            // if (turn % orderid == 0) {
+            //     document.getElementById("show").style.display = "block";
+            // } else {
+            //     document.getElementById("show").style.display = "none";
+            // }
+
         }
     </script>
 </head>
 
 <body>
-    <p id="turn"></p>
+    <p id="turn1"></p>
     <input id="tf2" type="textfield">
-    <button onclick="runButtonPressed()">入力</button>
+    <button id="show" onclick="runButtonPressed()">入力</button>
     <p id='result'></p>
 </body>
 
