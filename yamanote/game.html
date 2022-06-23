@@ -31,9 +31,9 @@
 
             var gameid = 1//sessionStorage.getItem('gameid');
             var playerid = me.id
-            var orderid = 1//sessionStorage.getItem('orderid');
+            var turnid = 1//sessionStorage.getItem('turnid');
             var content = document.getElementById('tf2').value;
-            var sql = `insert into Item (gameid, playerid, orderid, content) values ("${gameid}", "${playerid}", "${orderid}", "${content}");`;
+            var sql = `insert into Items (gameid, playerid, turnid, content) values ("${gameid}", "${playerid}", "${orderid}", "${content}");`;
             var objects = await osql.connect(sql);
 
             //テーブルを表示させる
@@ -45,7 +45,7 @@
                 var object2 = objects2[i];
                 html = html + '<tr>';
                 html = html + '<td>' + object2.playerid + '</td>';
-                //html = html + '<td>' + object2.orderid + '</td>';
+                //html = html + '<td>' + object2.turnid + '</td>';
                 html = html + '<td>' + object2.content + '</td>';
                 html = html + '</tr>';
             }
