@@ -26,35 +26,20 @@
 
             var gameid = sessionStorage.getItem('gameid');
 
-            document.getElementById('welcome').innerHTML = 'テーマ「' + gameid + '」';
+            document.getElementById('welcome').innerHTML = 'テーマ「' + gameid + '」 まとめ';
 
-            var html = '';
-            html = html + '<table border = "1">';
-            html = html + '<tr>';
-            html = html + '<td>' + 'gameid' + '</td>';
-            //html = html + '<td>' + 'turn' + '</td>';
-            html = html + '</tr>';
-            for (var i = 0; i < objects2.length; i++) {
-                var object2 = objects2[i];
-                html = html + '<tr>';
-                html = html + '<td>' + object2.gameid + '</td>';
-                //html = html + '<td>' + object2.turn + '</td>';
-                html = html + '</tr>';
-            }
-            html = html + '</table>';
-            document.getElementById('result').innerHTML = html;
         };
 
 
 
         function runButtonPressed() {
-            location.href = `matome.html`;
+            location.href = `game.html`;
         }
     </script>
 </head>
 
 <body>
-    <h1 id="welcome"> </h1>
+    <h1 id="welcome"></h1>
     <input id="tf2" type="textfield">
     <button onclick="runButtonPressed()">入力</button>
     <p id='result'></p>
