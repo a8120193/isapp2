@@ -55,6 +55,10 @@
             var gameid = object2.gameid;
             sessionStorage.setItem('gameid', gameid);
             location.href = `waiting.html`;
+
+
+
+
         }
 
 
@@ -70,11 +74,19 @@
             var gameid = object2.gameid;
             var playerid = me.id;
 
-            var sql = `insert into G_P (gameid, playerid) values (${gameid}, "${playerid}")`;
+            var sql3 = `select * from G_P where gameid = ${gameid_input}`;
+            var objects3 = await osql.connect(sql3);
+            var object3 = objects3[objects3.length - 1];  // リストの一番下の行を表示
+            console.log(object3);
+            var orderid = object3.orderid;
+
+            var sql = `insert into G_P (gameid, playerid, orderid) values (${gameid}, "${playerid}", ${orderid})`;
             var objects = await osql.connect(sql);
             var gameid = gameid_input;
             sessionStorage.setItem('gameid', gameid);
             location.href = `waiting.html`;
+
+
         }
 
 
