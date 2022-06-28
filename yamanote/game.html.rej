@@ -1,0 +1,42 @@
+diff a/yamanote/game.html b/yamanote/game.html	(rejected hunks)
+@@ -1,39 +1,39 @@
+ <!DOCTYPE html>
+ <html>
+ 
+ <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <script type="text/javascript" src="../lib/jquery.min.js"></script>
+     <script type="text/javascript" src="../lib/osql.js"></script>
+     <script>
+         osql.requireLogin();
+ 
+         $(document).ready(function () {
+             id2();
+             setInterval(id2, 2000);
+-            //setInterval(reload, 2000);
++            // setInterval(reload, 2000);
+         });
+ 
+ 
+         async function id2() {
+             var me = await osql.getMe();
+             console.log(me);
+ 
+             var gameid = sessionStorage.getItem('gameid');
+             var id = me.id;
+             var name = me.fname + ' ' + me.lname;
+             var sql = `insert ignore into Players values('${id}', '${name}')`;
+             var objects = await osql.connect(sql);
+             document.getElementById('turn1').innerHTML = name + 'さんの番です';
+ 
+             //テーブルを表示させる
+             var sql2 = `select * from Items where gameid = ${gameid}`;
+             var objects2 = await osql.connect(sql2);
+             var html = '';
+             html = html + '<table border = "1">';
+             html = html + '<tr>';
+             html = html + '<td>' + 'playerid' + '</td>';
+             html = html + '<td>' + 'turn' + '</td>';
+             html = html + '<td>' + 'content' + '</td>';
+             html = html + '</tr>';
+             for (var i = 0; i < objects2.length; i++) {
