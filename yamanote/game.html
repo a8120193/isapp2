@@ -49,6 +49,8 @@
 
         async function runButtonPressed() {
 
+            var gameid = sessionStorage.getItem('gameid');
+
             var me = await osql.getMe();
             console.log(me);
 
