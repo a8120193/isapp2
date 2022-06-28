@@ -13,28 +13,21 @@
         });
 
         async function id2() {
-            var me = await osql.getMe();
-            console.log(me);
-
             var gameid = sessionStorage.getItem('gameid');
-            var turn2 = sessionStorage.getItem('turn2');
-
-            var id = me.id;
-            var name = me.fname + ' ' + me.lname;
-            var sql = `insert ignore into Players values('${id}', '${name}')`;
-            var objects = await osql.connect(sql);
-
             document.getElementById('welcome').innerHTML = 'ここのゲームIDは' + gameid + 'です';
         };
 
         function runButtonPressed() {
             var gameid = sessionStorage.getItem('gameid');
-            var turn2 = sessionStorage.getItem('turn2');
-            turn2 = turn2 + 1;
+            var turn = sessionStorage.getItem('turn');
+            turn = turn + 1;
             sessionStorage.setItem('gameid', gameid);
             sessionStorage.setItem('turn2', turn2);
             location.href = `game.html`;
         }
+
+        function
+
     </script>
 </head>
 
