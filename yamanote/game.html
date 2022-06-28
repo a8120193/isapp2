@@ -10,7 +10,7 @@
 
         $(document).ready(function () {
             id2();
-            setInterval(id2, 2000);
+            //setInterval(id2, 2000);
             //setInterval(reload, 2000);
 
         });
@@ -69,22 +69,30 @@
 
             var sql2 = `select * from G_P where gameid = ${gameid} AND playerid = "${playerid}"`;
             var objects2 = await osql.connect(sql2);
-            var orderid = objects3[0].orderid;
+            var orderid = objects2[0].orderid;
             console.log(orderid);
 
 
 
-            if ((((turn - 1) % orderid) + 1) == orderid) {
+            if (((turn - 1) % (orderid + 1)) + 1 == orderid) {
                 document.getElementById("show").style.display = "block";
                 document.getElementById("tf2").style.display = "block";
+                console.log(orderid);
+                console.log(((turn - 1) % (orderid + 1)) + 1);
+                console.log('こんにちは');
             } else {
                 document.getElementById("show").style.display = "none";
                 document.getElementById("tf2").style.display = "none";
                 document.getElementById('show2').innerHTML = ("待っててね！")
+                console.log('こんにち');
             }
+
+
 
             var sql4 = `update Game set turn = turn + 1 where gameid = ${gameid}`;
             var objects = await osql.connect(sql4);
+
+            console.log(turn);
 
         }
 
