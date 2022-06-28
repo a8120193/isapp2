@@ -76,6 +76,8 @@
             var objects2 = await osql.connect(sql2);
             var object2 = objects2[objects2.length - 1];
 
+            var turn = objects2.turn;
+
             var gameid = object2.gameid;
             var playerid = me.id;
 
@@ -96,6 +98,7 @@
             var objects = await osql.connect(sql);
             var gameid = gameid_input;
             sessionStorage.setItem('gameid', gameid);
+            sessionStorage.setItem('turn', turn);
             location.href = `waiting.html`;
 
 

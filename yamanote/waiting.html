@@ -27,6 +27,8 @@
         };
 
         function runButtonPressed() {
+            sessionStorage.setItem('gameid', gameid);
+            sessionStorage.setItem('turn', turn);
             location.href = `game.html`;
         }
     </script>
