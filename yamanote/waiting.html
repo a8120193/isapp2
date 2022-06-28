@@ -29,9 +29,10 @@
 
         function runButtonPressed() {
             var gameid = sessionStorage.getItem('gameid');
-            var turn = sessionStorage.getItem('turn');
+            var turn2 = sessionStorage.getItem('turn2');
+            turn2 = turn2 + 1;
             sessionStorage.setItem('gameid', gameid);
-            sessionStorage.setItem('turn', turn);
+            sessionStorage.setItem('turn2', turn2);
             location.href = `game.html`;
         }
     </script>
