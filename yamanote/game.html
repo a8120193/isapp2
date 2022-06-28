@@ -67,10 +67,11 @@
             var objects3 = await osql.connect(sql3);
             var object3 = objects3[objects3.length - 1];  // リストの一番下の行を表示
             var orderid = object3.orderid;
+            var orderid2 = Number(orderid) + 1;
 
 
 
-            if (((turn - 1) % orderid + 1) == orderid) {
+            if (((turn - 1) % orderid2 + 1) == orderid2) {
                 document.getElementById("show").style.display = "block";
                 document.getElementById("tf2").style.display = "block";
             } else {
