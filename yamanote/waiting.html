@@ -35,7 +35,7 @@
             var sql = `select * from Game where gameid = ${gameid}`;
             var objects = await osql.connect(sql);
 
-            if (objects.turn == 1) {
+            if (objects[0].turn == 1) {
                 location.href = `game.html`;
             }
         }
