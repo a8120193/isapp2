@@ -39,7 +39,7 @@
             html = html + '<table border = "1">';
             html = html + '<tr>';
             html = html + '<td>' + 'gameid' + '</td>';
-            //html = html + '<td>' + 'turn' + '</td>';
+            html = html + '<td>' + 'turn' + '</td>';
             html = html + '</tr>';
             for (var i = 0; i < objects2.length; i++) {
                 var object2 = objects2[i];
@@ -68,10 +68,10 @@
             //var sql4 = `create table Item`;
 
 
-            // var object2 = objects2[objects2.length - 1];
-            // var gameid = object2.gameid;
-            // sessionStorage.setItem('gameid', gameid);
-            // //location.href = `waiting.html`;
+            var object2 = objects2[objects2.length - 1];
+            var gameid = object2.gameid;
+            sessionStorage.setItem('gameid', gameid);
+            location.href = `waiting.html`;
 
             // var orderid = 1;
             // var sql3 = `insert into G_P (gameid, playerid, orderid) values (${gameid}, "${id}", ${orderid})`;

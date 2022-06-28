@@ -14,12 +14,12 @@
         });
 
 
-        async function id2() {
+        function id2() {
             var gameid = sessionStorage.getItem('gameid');
             document.getElementById('welcome').innerHTML = 'ここのゲームIDは' + gameid + 'です';
         };
 
-        function runButtonPressed() {
+        async function runButtonPressed() {
             var gameid = sessionStorage.getItem('gameid');
 
 
@@ -30,7 +30,7 @@
             location.href = `game.html`;
         }
 
-        function check() {
+        async function check() {
             var gameid = sessionStorage.getItem('gameid');
             var sql = `select * from Game where gameid = ${gameid}`;
             var objects = await osql.connect(sql);
