@@ -54,8 +54,6 @@
 
         async function runButtonPressedA() {
 
-
-            //var turn = 0;
             var me = await osql.getMe();
             console.log(me);
             var id = me.id;
@@ -87,24 +85,14 @@
             var playerid = me.id;
             console.log(me);
 
-            // var sql2 = `select * from Game where gameid = ${gameid}`;
-            // var objects2 = await osql.connect(sql2);
-            // var turn = Number(objects2[0].turn);
-
             var sql3 = `select * from G_P where gameid = ${gameid}`;
             var objects3 = await osql.connect(sql3);
             var orderid = objects3.length + 1;
 
-
-
             var sql = `insert into G_P (gameid, playerid, orderid) values (${gameid}, "${playerid}", ${orderid})`;
             var objects = await osql.connect(sql);
             sessionStorage.setItem('gameid', gameid);
-            //sessionStorage.setItem('turn2', turn2);
             location.href = `waiting.html`;
-
-
-
         }
 
 
