@@ -17,6 +17,7 @@
             console.log(me);
 
             var gameid = sessionStorage.getItem('gameid');
+            var turn = sessionStorage.getItem('turn');
 
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
@@ -27,6 +28,8 @@
         };
 
         function runButtonPressed() {
+            var gameid = sessionStorage.getItem('gameid');
+            var turn = sessionStorage.getItem('turn');
             sessionStorage.setItem('gameid', gameid);
             sessionStorage.setItem('turn', turn);
             location.href = `game.html`;
