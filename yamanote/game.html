@@ -17,6 +17,9 @@
             var me = await osql.getMe();
             console.log(me);
 
+            var gameid = sessionStorage.getItem('gameid');
+            var turn = sessionStorage.getItem('turn');
+
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
             var sql = `insert ignore into Players values('${id}', '${name}')`;
@@ -34,6 +37,9 @@
 
             var me = await osql.getMe();
             console.log(me);
+
+            var gameid = sessionStorage.getItem('gameid');
+            var turn = sessionStorage.getItem('turn');
 
             var gameid = 1//sessionStorage.getItem('gameid');
             var playerid = me.id
