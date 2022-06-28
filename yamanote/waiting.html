@@ -10,7 +10,9 @@
 
         $(document).ready(function () {
             id2();
+            setInterval(check, 2000);
         });
+
 
         async function id2() {
             var gameid = sessionStorage.getItem('gameid');
@@ -19,14 +21,24 @@
 
         function runButtonPressed() {
             var gameid = sessionStorage.getItem('gameid');
-            var turn = sessionStorage.getItem('turn');
-            turn = turn + 1;
-            sessionStorage.setItem('gameid', gameid);
-            sessionStorage.setItem('turn2', turn2);
+
+
+            var sql = `update Game set turn = turn + 1 where gameid = ${gameid}`;
+            var objects = await osql.connect(sql);
+
+
             location.href = `game.html`;
         }
 
-        function
+        function check() {
+            var gameid = sessionStorage.getItem('gameid');
+            var sql = `select * from Game where gameid = ${gameid}`;
+            var objects = await osql.connect(sql);
+
+            if (objects.turn == 1) {
+                location.href = `game.html`;
+            }
+        }
 
     </script>
 </head>
