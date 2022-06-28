@@ -52,20 +52,24 @@
             var me = await osql.getMe();
             console.log(me);
 
-            var id = me.id;
+            var sql3 = `select * from Game where gameid = ${gameid} `;
+            var objects3 = await osql.connect(sql3);
+            var turn = objects3[0].turn
+
+
+            var playerid = me.id;
             var gameid = sessionStorage.getItem('gameid');
             var content = document.getElementById('tf2').value;
-            var sql = `insert into Items (gameid, playerid, turn, content) values (${gameid}, "${playerid}", ${turn3}, "${content}");`;
+            var sql = `insert into Items (gameid, playerid, turn, content) values (${gameid}, "${playerid}", ${turn}, "${content}");`;
             var objects = await osql.connect(sql);
 
             var sql2 = `select * from G_P where gameid = ${gameid} AND playerid = ${id}`;
-            var objects3 = await osql.connect(sql2);
+            var objects2 = await osql.connect(sql2);
             var orderid = objects3[0].orderid;
 
-            var sql3 = `select * from Game where gameid = ${gameid} `;
-            var objects = await osql.connect(sql3);
 
-            if (((object[0].turn - 1) % orderid + 1) == orderid) {
+
+            if (((turn - 1) % orderid + 1) == orderid) {
                 document.getElementById("show").style.display = "block";
                 document.getElementById("tf2").style.display = "block";
             } else {
