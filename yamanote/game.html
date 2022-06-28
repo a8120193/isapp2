@@ -69,6 +69,7 @@
             var sql2 = `select * from G_P where gameid = ${gameid} AND playerid = "${playerid}"`;
             var objects2 = await osql.connect(sql2);
             var orderid = objects3[0].orderid;
+            console.log(orderid);
 
 
 
