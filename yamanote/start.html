@@ -43,7 +43,11 @@
 
         async function runButtonPressedA() {
             //var turn = 0;
-            var sql = `insert into Game () values ()`;
+            var me = await osql.getMe();
+            console.log(me);
+            var id = me.id;
+
+            var sql = `insert into Game (turn, playernum) values (0, 1)`;
             var objects = await osql.connect(sql);
             var sql2 = `select * from Game`;
             var objects2 = await osql.connect(sql2);
@@ -56,8 +60,9 @@
             sessionStorage.setItem('gameid', gameid);
             location.href = `waiting.html`;
 
-
-
+            var orderid = 1;
+            var sql3 = `insert into G_P (gameid, playerid, orderid) values (${gameid}, "${id}", ${orderid})`;
+            var objects3 = await osql.connect(sql3);
 
         }
 
@@ -80,7 +85,14 @@
             console.log(object3);
             var orderid = object3.orderid;
 
-            var sql = `insert into G_P (gameid, playerid, orderid) values (${gameid}, "${playerid}", ${orderid})`;
+            console.log(orderid);
+
+            var orderid2 = Number(orderid) + 1;
+            console.log(orderid2);
+
+
+
+            var sql = `insert into G_P (gameid, playerid, orderid) values (${gameid}, "${playerid}", ${orderid2})`;
             var objects = await osql.connect(sql);
             var gameid = gameid_input;
             sessionStorage.setItem('gameid', gameid);
