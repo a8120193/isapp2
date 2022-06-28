@@ -65,7 +65,7 @@
             var sql = `insert into Items (gameid, playerid, turn, content) values (${gameid}, "${playerid}", ${turn}, "${content}");`;
             var objects = await osql.connect(sql);
 
-            var sql2 = `select * from G_P where gameid = ${gameid} AND playerid = ${id}`;
+            var sql2 = `select * from G_P where gameid = ${gameid} AND playerid = ${playerid}`;
             var objects2 = await osql.connect(sql2);
             var orderid = objects3[0].orderid;
 
