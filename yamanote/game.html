@@ -18,7 +18,7 @@
             console.log(me);
 
             var gameid = sessionStorage.getItem('gameid');
-            var turn = sessionStorage.getItem('turn');
+            var turn2 = sessionStorage.getItem('turn2');
 
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
@@ -38,13 +38,14 @@
             console.log(me);
 
             var gameid = sessionStorage.getItem('gameid');
-            var turn = sessionStorage.getItem('turn');
+            var turn2 = sessionStorage.getItem('turn2');
+            var turn3 = Number(turn2);
 
             var gameid = 1//sessionStorage.getItem('gameid');
             var playerid = me.id
             var turnid = 1//sessionStorage.getItem('turnid');
             var content = document.getElementById('tf2').value;
-            var sql = `insert into Items (gameid, playerid, turn, content) values ("${gameid}", "${playerid}", "${turn}", "${content}");`;
+            var sql = `insert into Items (gameid, playerid, turn, content) values (${gameid}, "${playerid}", ${turn3}, "${content}");`;
             var objects = await osql.connect(sql);
 
             //テーブルを表示させる
@@ -76,7 +77,7 @@
 
 
 
-            if (((turn - 1) % orderid2 + 1) == orderid2) {
+            if (((turn3 - 1) % orderid2 + 1) == orderid2) {
                 document.getElementById("show").style.display = "block";
                 document.getElementById("tf2").style.display = "block";
             } else {
