@@ -11,7 +11,7 @@
         $(document).ready(function () {
             id2();
             setInterval(id2, 2000);
-            //setInterval(reload, 2000);
+            setInterval(reload, 2000);
 
         });
 
@@ -103,13 +103,17 @@
             var turn = objects3[0].turn
             var orderid = objects3[0].orderid;
 
-            if (((turn - 1) % orderid + 1) == orderid) {
+            if (((turn - 1) % (orderid + 1)) + 1 == orderid) {
                 document.getElementById("show").style.display = "block";
                 document.getElementById("tf2").style.display = "block";
+                console.log(orderid);
+                console.log(((turn - 1) % (orderid + 1)) + 1);
+
             } else {
                 document.getElementById("show").style.display = "none";
                 document.getElementById("tf2").style.display = "none";
                 document.getElementById('show2').innerHTML = ("待っててね！")
+
             }
         }
 
