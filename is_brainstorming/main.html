@@ -21,15 +21,13 @@
 
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
-            var sql = `insert ignore into Players values('${id}', '${name}')`;
+            var sql = `insert ignore into Users values('${id}', '${name}')`;
             var objects = await osql.connect(sql);
 
-            var sql2 = `select * from Game`;
-            var objects2 = await osql.connect(sql2);
 
-            var gameid = sessionStorage.getItem('gameid');
 
-            document.getElementById('welcome').innerHTML = 'テーマ「' + gameid + '」';
+
+            document.getElementById('welcome').innerHTML = 'テーマ「' + themename + '」';
 
             var html = '';
             html = html + '<table border = "1">';
