@@ -81,14 +81,14 @@
             if (((turn - 1) % playernum) + 1 == orderid) {
                 document.getElementById("show").style.display = "block";
                 document.getElementById("tf2").style.display = "block";
-                document.getElementById('show2').style.display = "block";
+                document.getElementById('show2').style.display = "none";
                 console.log(orderid);
                 console.log(((turn - 1) % playernum) + 1);
                 console.log('こんにちは');
             } else {
                 document.getElementById("show").style.display = "none";
                 document.getElementById("tf2").style.display = "none";
-                document.getElementById('show2').style.display = "none";
+                document.getElementById('show2').style.display = "block";
                 console.log('こんにち');
             }
 
@@ -129,7 +129,7 @@
             if (((turn - 1) % playernum) + 1 == orderid) {
                 document.getElementById("show").style.display = "block";
                 document.getElementById("tf2").style.display = "block";
-                document.getElementById('show2').style.display = "block";
+                document.getElementById('show2').style.display = "none";
                 console.log(orderid);
                 console.log(((turn - 1) % playernum) + 1);
 
@@ -137,7 +137,7 @@
             } else {
                 document.getElementById("show").style.display = "none";
                 document.getElementById("tf2").style.display = "none";
-                document.getElementById('show2').style.display = "none";
+                document.getElementById('show2').style.display = "block";
 
             }
         }
