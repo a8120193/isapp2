@@ -62,6 +62,20 @@
             var objects = await osql.connect(sql);
 
         }
+
+        async function runButtonPressed_group() {
+            var me = await osql.getMe();
+            console.log(me);
+
+            id2();
+
+            var content = document.getElementById('tf2').value;
+            var userid = me.id;
+
+
+        }
+
+
     </script>
 </head>
 
@@ -69,6 +83,8 @@
     <h1 id="welcome"> </h1>
     <input id="tf2" type="textfield">
     <button onclick="runButtonPressed()">入力</button>
+    <input id="tf3" type="textfield">
+    <button id="group" onclick="runButtonPressed_group()">作成</button>
     <p id='result'></p>
 </body>
 
