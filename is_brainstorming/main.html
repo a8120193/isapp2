@@ -66,10 +66,10 @@
             var themeid = objects3[0].id;
 
             var content = document.getElementById('tf2').value;
-            var userid = me.id;
+            var userid = me.fname + ' ' + me.lname;
             var sql = `insert into Items (userid, content, themeid) values ("${userid}", "${content}", "${themeid}");`;
             var objects = await osql.connect(sql);
-
+            tf2.value = '';
         }
 
         async function runButtonPressed_group() {
@@ -78,10 +78,8 @@
 
             id2();
 
-            var content = document.getElementById('tf2').value;
-            var userid = me.id;
-
-
+            var content = document.getElementById('tf3').value;
+            tf3.value = '';
         }
 
 
@@ -90,8 +88,12 @@
 
 <body>
     <h1 id="welcome"> </h1>
+    意見
+    <br>
     <input id="tf2" type="textfield">
     <button onclick="runButtonPressed()">入力</button>
+    <br>
+    グループ名
     <br>
     <input id="tf3" type="textfield">
     <button id="group" onclick="runButtonPressed_group()">作成</button>
