@@ -17,8 +17,12 @@
             var me = await osql.getMe();
             console.log(me);
 
-            var themeid = osql.getParam('themeid');
+
             var themename = osql.getParam('name');
+
+            var sql3 = `select * from Theme where name = "${themename}"`;
+            var objects3 = await osql.connect(sql3);
+            var themeid = objects3[0].id;
 
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
@@ -27,7 +31,7 @@
 
             document.getElementById('welcome').innerHTML = 'テーマ「' + themename + '」';
 
-            var sql2 = `select * from Items `;  //where themeid = ${ themeid }
+            var sql2 = `select * from Items where themeid = ${themeid}`;
             var objects2 = await osql.connect(sql2);
             var html = '';
             html = html + '<table border = "1">';
@@ -56,9 +60,14 @@
 
             id2();
 
+            var themename = osql.getParam('name');
+            var sql3 = `select * from Theme where name = "${themename}"`;
+            var objects3 = await osql.connect(sql3);
+            var themeid = objects3[0].id;
+
             var content = document.getElementById('tf2').value;
             var userid = me.id;
-            var sql = `insert into Items (userid, content) values ("${userid}", "${content}");`;
+            var sql = `insert into Items (userid, content, themeid) values ("${userid}", "${content}", "${themeid}");`;
             var objects = await osql.connect(sql);
 
         }
