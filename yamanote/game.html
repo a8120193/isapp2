@@ -106,8 +106,10 @@
             var turn = objects3[0].turn
             var orderid = objects3[0].orderid;
 
-            var object3 = objects3[objects3.length - 1];
-            var playernum = object3.orderid;
+            var sql = `select * from G_P where gameid = ${gameid}`;
+            var objects = await osql.connect(sql);
+            var object = objects[objects.length - 1];
+            var playernum = object.orderid;
 
             if (((turn - 1) % playernum) + 1 == orderid) {
                 document.getElementById("show").style.display = "block";
