@@ -33,9 +33,13 @@
 
             var sql2 = `select * from Items where themeid = ${themeid}`;
             var objects2 = await osql.connect(sql2);
+
+            var sql3 = `select * from Groups`;
+            var objects3 = await osql.connect(sql3);
             var html = '';
             html = html + '<table border = "1">';
             html = html + '<tr>';
+            html = html + '<td>' + 'プル' + '</td>';
             html = html + '<td>' + '投稿者名' + '</td>';
             html = html + '<td>' + '入力時間' + '</td>';
             html = html + '<td>' + '意見' + '</td>';
@@ -43,6 +47,12 @@
             for (var i = 0; i < objects2.length; i++) {
                 var object2 = objects2[i];
                 html = html + '<tr>';
+                html = html + '<td><select>'
+                for (var j = 0; j < objects3.length; j++) {
+                    var object3 = objects3[i];
+                    html = html + '<option>' + objects3.title + '</option>'
+                }
+                html = html + '</select></td>';
                 html = html + '<td>' + object2.userid + '</td>';
                 html = html + '<td>' + object2.time + '</td>';
                 html = html + '<td>' + object2.content + '</td>';
