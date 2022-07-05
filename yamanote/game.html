@@ -77,6 +77,7 @@
             var object3 = objects3[objects3.length - 1];
             var playernum = object3.orderid;
 
+
             if (((turn - 1) % playernum) + 1 == orderid) {
                 document.getElementById("show").style.display = "block";
                 document.getElementById("tf2").style.display = "block";
@@ -100,22 +101,36 @@
         }
 
         async function reload() {
+            var me = await osql.getMe();
+            console.log(me);
+
+            var playerid = me.id;
+
             var gameid = sessionStorage.getItem('gameid');
             var sql3 = `select * from Game where gameid = ${gameid} `;
             var objects3 = await osql.connect(sql3);
             var turn = objects3[0].turn
-            var orderid = objects3[0].orderid;
+
 
             var sql = `select * from G_P where gameid = ${gameid}`;
             var objects = await osql.connect(sql);
             var object = objects[objects.length - 1];
             var playernum = object.orderid;
 
+            var sql2 = `select * from G_P where gameid = ${gameid} AND playerid = "${playerid}"`;
+            var objects2 = await osql.connect(sql2);
+            var orderid = objects2[0].orderid;
+
+            console.log(playernum);
+            console.log(((turn - 1) % playernum) + 1);
+            console.log(orderid);
+
             if (((turn - 1) % playernum) + 1 == orderid) {
                 document.getElementById("show").style.display = "block";
                 document.getElementById("tf2").style.display = "block";
                 console.log(orderid);
                 console.log(((turn - 1) % playernum) + 1);
+
 
             } else {
                 document.getElementById("show").style.display = "none";
