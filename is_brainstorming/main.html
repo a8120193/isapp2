@@ -17,8 +17,8 @@
             var me = await osql.getMe();
             console.log(me);
 
-            var themeid = sessionStorage.getItem('themeid');
-            var themename = sessionStorage.getItem('themename');
+            var themeid = osql.getParam('themeid');
+            var themename = osql.getParam('name');
 
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
