@@ -36,10 +36,48 @@
 
             var sql3 = `select * from Groups`;
             var objects3 = await osql.connect(sql3);
+
+            var sql4 = ``; //グループごとのテーブルを検索する文
+            var objects4 = await osql.connect(sql4);
+
+            for (var k = 0; k < objects3.length; k++) {
+                var object3 = objects3[k];
+                var html = '';
+                html = html + '<h1>' + object3.title + '</h1>';
+                html = html + '<table border = "1">';
+                html = html + '<tr>';
+                html = html + '<td>' + 'グループ' + '</td>';
+                html = html + '<td>' + '投稿者名' + '</td>';
+                html = html + '<td>' + '入力時間' + '</td>';
+                html = html + '<td>' + '意見' + '</td>';
+                html = html + '</tr>';
+                for (var i = 0; i < objects2.length; i++) {
+                    var object2 = objects2[i];
+                    html = html + '<tr>';
+                    html = html + '<td><select>'
+                    for (var j = 0; j < objects3.length; j++) {
+                        var object33 = objects3[j];
+                        html = html + '<option>' + object33.title + '</option>'
+                    }
+                    html = html + '</select></td>';
+                    html = html + '<td>' + object2.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
+                    html = html + '<td>' + object2.time + '</td>';
+                    html = html + '<td>' + object2.content + '</td>';
+                    html = html + '</tr>';
+                }
+                html = html + '</table>';
+                document.getElementById('result').innerHTML = html;
+            }
+
+
+
+
+
             var html = '';
+            html = html + '<h1>未設定</h1>';
             html = html + '<table border = "1">';
             html = html + '<tr>';
-            html = html + '<td>' + 'プル' + '</td>';
+            html = html + '<td>' + 'グループ' + '</td>';
             html = html + '<td>' + '投稿者名' + '</td>';
             html = html + '<td>' + '入力時間' + '</td>';
             html = html + '<td>' + '意見' + '</td>';
@@ -49,8 +87,8 @@
                 html = html + '<tr>';
                 html = html + '<td><select>'
                 for (var j = 0; j < objects3.length; j++) {
-                    var object3 = objects3[i];
-                    html = html + '<option>' + objects3.title + '</option>'
+                    var object3 = objects3[j];
+                    html = html + '<option>' + object3.title + '</option>'
                 }
                 html = html + '</select></td>';
                 html = html + '<td>' + object2.userid + '</td>';
@@ -77,19 +115,37 @@
 
             var content = document.getElementById('tf2').value;
             var userid = me.fname + ' ' + me.lname;
-            var sql = `insert into Items (userid, content, themeid) values ("${userid}", "${content}", "${themeid}");`;
+            var sql = `insert into Items (userid, content, themeid) values ("${userid}", "${content}", "${themeid}")`;
             var objects = await osql.connect(sql);
             tf2.value = '';
         }
 
         async function runButtonPressed_group() {
+
+
             var me = await osql.getMe();
             console.log(me);
 
             id2();
 
-            var content = document.getElementById('tf3').value;
+            var title = document.getElementById('tf3').value;
+            var sql4 = `insert into Groups (title) values ("${title}")`;
+            var objects4 = await osql.connect(sql4);
+
+
+            // var sql5 = `select * from Groups where title = "${title}"`
+            // var objects5 = await osql.connect(sql5);
+            // var groupid = objects5[0].id;
+
+            // var sql6 = `insert into I_G (Groupid, itemid) values ("${groupid}", "${}")`
+            // var objects6 = await osql.connect(sql6);
+
             tf3.value = '';
+
+        }
+
+        async function runButtonPressed_henkou() {
+            //プルで選択した後押す確定ボタン。グループのidと意見のidを結びつけたい。sql変えればいい？
         }
 
 
@@ -107,6 +163,8 @@
     <br>
     <input id="tf3" type="textfield">
     <button id="group" onclick="runButtonPressed_group()">作成</button>
+    <br>
+    <button id="henkou" onclick="runButtonPressed_henkou()">グループ変更</button>
     <p id='result'></p>
 </body>
 
