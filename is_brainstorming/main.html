@@ -53,6 +53,7 @@
                 html = html + '<table border = "1">';
                 html = html + '<tr>';
                 html = html + '<td>' + 'グループ' + '</td>';
+                html = html + '<td>' + '変更' + '</td>';
                 html = html + '<td>' + '投稿者名' + '</td>';
                 html = html + '<td>' + '入力時間' + '</td>';
                 html = html + '<td>' + '意見' + '</td>';
@@ -68,6 +69,7 @@
                         html = html + '<option value = ' + object3.id + '>' + object33.title + '</option>'
                     }
                     html = html + '</select></td>';
+                    html = html + '<td>' + `<button onclick= "runButtonPressed_henkou("${object4.id}")">変更</button>` + '</td>';
                     html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
                     html = html + '<td>' + object4.time + '</td>';
                     html = html + '<td>' + object4.content + '</td>';
@@ -194,7 +196,7 @@
     <input id="tf3" type="textfield">
     <button id="group" onclick="runButtonPressed_group()">作成</button>
     <br>
-    <button id="henkou" onclick="runButtonPressed_henkou()">グループ変更</button>
+
     <p id='result'></p>
 </body>
 
