@@ -62,10 +62,10 @@
                     var object4 = objects4[i];
                     html = html + '<tr>';
                     html = html + '<td><select>'
-                    html = html + '<option>未選択</option>'
+                    html = html + '<option value = 0>未選択</option>'
                     for (var j = 0; j < objects3.length; j++) {
                         var object33 = objects3[j];
-                        html = html + '<option>' + object33.title + '</option>'
+                        html = html + '<option value = ' + object3.id + '>' + object33.title + '</option>'
                     }
                     html = html + '</select></td>';
                     html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
@@ -104,8 +104,8 @@
             // html = html + '</table>';
             // document.getElementById('result').innerHTML = html;
 
-            var sql7 = `insert into  I_G (groupid , itemid) values ("${object5}", "${object6}")`;
-            var objects7 = await osql.connect(sql7);
+            // var sql7 = `insert into  I_G (groupid , itemid) values ("${object5}", "${object6}")`;
+            // var objects7 = await osql.connect(sql7);
 
         };
 
