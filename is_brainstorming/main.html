@@ -152,7 +152,7 @@
 
         }
 
-        async function runButtonPressed_henkou(itemid) {
+        async function runButtonPressed_henkou(itemid, groupid) {
             //プルで選択した後押す確定ボタン。グループのidと意見のidを結びつけたい。sql変えればいい？
 
             var me = await osql.getMe();
@@ -172,7 +172,7 @@
             //     console.log(object6)
             // }
 
-            var sql7 = `insert into  I_G (groupid , itemid) values ("${object5}", "${itemid}")`;
+            var sql7 = `insert into  I_G (groupid , itemid) values ("${groupid}", "${itemid}")`;
             var objects7 = await osql.connect(sql7);
 
 
