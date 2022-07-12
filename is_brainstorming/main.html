@@ -62,6 +62,7 @@
                     var object4 = objects4[i];
                     html = html + '<tr>';
                     html = html + '<td><select>'
+                    html = html + '<option>未選択</option>'
                     for (var j = 0; j < objects3.length; j++) {
                         var object33 = objects3[j];
                         html = html + '<option>' + object33.title + '</option>'
@@ -77,31 +78,31 @@
             }
 
 
-            var html = '';
-            html = html + '<h1>未設定</h1>';
-            html = html + '<table border = "1">';
-            html = html + '<tr>';
-            html = html + '<td>' + 'グループ' + '</td>';
-            html = html + '<td>' + '投稿者名' + '</td>';
-            html = html + '<td>' + '入力時間' + '</td>';
-            html = html + '<td>' + '意見' + '</td>';
-            html = html + '</tr>';
-            for (var i = 0; i < objects2.length; i++) {
-                var object2 = objects2[i];
-                html = html + '<tr>';
-                html = html + '<td><select>'
-                for (var j = 0; j < objects3.length; j++) {
-                    var object3 = objects3[j];
-                    html = html + '<option>' + object3.title + '</option>'
-                }
-                html = html + '</select></td>';
-                html = html + '<td>' + object2.userid + '</td>';
-                html = html + '<td>' + object2.time + '</td>';
-                html = html + '<td>' + object2.content + '</td>';
-                html = html + '</tr>';
-            }
-            html = html + '</table>';
-            document.getElementById('result').innerHTML = html;
+            // var html = '';
+            // html = html + '<h1>未設定</h1>';
+            // html = html + '<table border = "1">';
+            // html = html + '<tr>';
+            // html = html + '<td>' + 'グループ' + '</td>';
+            // html = html + '<td>' + '投稿者名' + '</td>';
+            // html = html + '<td>' + '入力時間' + '</td>';
+            // html = html + '<td>' + '意見' + '</td>';
+            // html = html + '</tr>';
+            // for (var i = 0; i < objects2.length; i++) {
+            //     var object2 = objects2[i];
+            //     html = html + '<tr>';
+            //     html = html + '<td><select>'
+            //     for (var j = 0; j < objects3.length; j++) {
+            //         var object3 = objects3[j];
+            //         html = html + '<option>' + object3.title + '</option>'
+            //     }
+            //     html = html + '</select></td>';
+            //     html = html + '<td>' + object2.userid + '</td>';
+            //     html = html + '<td>' + object2.time + '</td>';
+            //     html = html + '<td>' + object2.content + '</td>';
+            //     html = html + '</tr>';
+            // }
+            // html = html + '</table>';
+            // document.getElementById('result').innerHTML = html;
 
             var sql7 = `insert into  I_G (groupid , itemid) values ("${object5}", "${object6}")`;
             var objects7 = await osql.connect(sql7);
@@ -151,6 +152,7 @@
 
         async function runButtonPressed_henkou() {
             //プルで選択した後押す確定ボタン。グループのidと意見のidを結びつけたい。sql変えればいい？
+
             // var me = await osql.getMe();
             // console.log(me);
 
@@ -170,6 +172,7 @@
 
             // var sql7 = `insert into  I_G (groupid , itemid) values ("${object5}", "${object6}")`;
             // var objects7 = await osql.connect(sql7);
+
 
         }
 
