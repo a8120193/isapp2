@@ -62,14 +62,14 @@
                     var object2 = objects2[i];
                     var object4 = objects4[i];
                     html = html + '<tr>';
-                    html = html + '<td><select>'
+                    html = html + '<td><select id = "group">'
                     html = html + '<option value = 0>未選択</option>'
                     for (var j = 0; j < objects3.length; j++) {
                         var object33 = objects3[j];
                         html = html + '<option value = ' + object3.id + '>' + object33.title + '</option>'
                     }
                     html = html + '</select></td>';
-                    html = html + '<td>' + `<button onclick= "runButtonPressed_henkou("${object4.id}")">変更</button>` + '</td>';
+                    html = html + '<td>' + `<button onclick= "runButtonPressed_henkou("${object4.id}", "group")">変更</button>` + '</td>';
                     html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
                     html = html + '<td>' + object4.time + '</td>';
                     html = html + '<td>' + object4.content + '</td>';
