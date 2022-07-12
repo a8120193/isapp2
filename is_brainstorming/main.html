@@ -86,10 +86,10 @@
             for (var i = 0; i < objects2.length; i++) {
                 var object2 = objects2[i];
                 html = html + '<tr>';
-                html = html + '<td><select>'
+                html = html + '<td><select id = ' + themeid + '>'
                 for (var j = 0; j < objects3.length; j++) {
                     var object3 = objects3[j];
-                    html = html + '<option>' + object3.title + '</option>'
+                    html = html + '<option id =' + object3.id + '>' + object3.title + '</option>'
                 }
                 html = html + '</select></td>';
                 html = html + '<td>' + object2.userid + '</td>';
