@@ -40,7 +40,7 @@
             var sql4 = `select * from Items inner join I_G on Items.id = I_G.itemid`; //グループごとのテーブルを検索する文
             var objects4 = await osql.connect(sql4);
 
-            グループごとにテーブル表示する
+            // グループごとにテーブル表示する
             for (var k = 0; k < objects3.length; k++) {
                 var object3 = objects3[k];
                 var html = '';
@@ -71,9 +71,6 @@
             }
 
 
-
-
-
             var html = '';
             html = html + '<h1>未設定</h1>';
             html = html + '<table border = "1">';
@@ -101,8 +98,6 @@
             document.getElementById('result').innerHTML = html;
         };
 
-
-
         async function runButtonPressed() {
             var me = await osql.getMe();
             console.log(me);
@@ -123,7 +118,6 @@
 
         async function runButtonPressed_group() {
 
-
             var me = await osql.getMe();
             console.log(me);
 
@@ -138,7 +132,7 @@
             // var objects5 = await osql.connect(sql5);
             // var groupid = objects5[0].id;
 
-            // var sql6 = `insert into I_G (Groupid, itemid) values ("${groupid}", "${}")`
+            //  var sql6 = `insert into I_G (Groupid, itemid) values ("${groupid}", "${}")`
             // var objects6 = await osql.connect(sql6);
 
             tf3.value = '';
@@ -147,7 +141,28 @@
 
         async function runButtonPressed_henkou() {
             //プルで選択した後押す確定ボタン。グループのidと意見のidを結びつけたい。sql変えればいい？
+            // var me = await osql.getMe();
+            // console.log(me);
+
+            // var sql5 = 'select id from Groups';
+            // var objects5 = await osql.connect(sql5);
+            // for (var i = 0; i < objects5.length; i++) {
+            //     var object5 = objects5[i];
+            // }
+
+            // var sql6 = 'select id from Items';
+            // var objects6 = await osql.connect(sql6);
+            // for (var i = 0; i < objects6.length; i++) {
+            //     var object6 = objects6[i];
+            // }
+            // console.log(object5)
+            // console.log(object6)
+
+
+            // var sql7 = `insert into  I_G (groupid , itemid) values ("${object5}", "${object6}")`;
         }
+
+
 
 
     </script>
