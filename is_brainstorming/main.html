@@ -40,34 +40,35 @@
             var sql4 = ``; //グループごとのテーブルを検索する文
             var objects4 = await osql.connect(sql4);
 
-            for (var k = 0; k < objects3.length; k++) {
-                var object3 = objects3[k];
-                var html = '';
-                html = html + '<h1>' + object3.title + '</h1>';
-                html = html + '<table border = "1">';
-                html = html + '<tr>';
-                html = html + '<td>' + 'グループ' + '</td>';
-                html = html + '<td>' + '投稿者名' + '</td>';
-                html = html + '<td>' + '入力時間' + '</td>';
-                html = html + '<td>' + '意見' + '</td>';
-                html = html + '</tr>';
-                for (var i = 0; i < objects2.length; i++) {
-                    var object2 = objects2[i];
-                    html = html + '<tr>';
-                    html = html + '<td><select>'
-                    for (var j = 0; j < objects3.length; j++) {
-                        var object33 = objects3[j];
-                        html = html + '<option>' + object33.title + '</option>'
-                    }
-                    html = html + '</select></td>';
-                    html = html + '<td>' + object2.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
-                    html = html + '<td>' + object2.time + '</td>';
-                    html = html + '<td>' + object2.content + '</td>';
-                    html = html + '</tr>';
-                }
-                html = html + '</table>';
-                document.getElementById('result').innerHTML = html;
-            }
+            //グループごとにテーブル表示する
+            // for (var k = 0; k < objects3.length; k++) {
+            //     var object3 = objects3[k];
+            //     var html = '';
+            //     html = html + '<h1>' + object3.title + '</h1>';
+            //     html = html + '<table border = "1">';
+            //     html = html + '<tr>';
+            //     html = html + '<td>' + 'グループ' + '</td>';
+            //     html = html + '<td>' + '投稿者名' + '</td>';
+            //     html = html + '<td>' + '入力時間' + '</td>';
+            //     html = html + '<td>' + '意見' + '</td>';
+            //     html = html + '</tr>';
+            //     for (var i = 0; i < objects2.length; i++) {
+            //         var object2 = objects2[i];
+            //         html = html + '<tr>';
+            //         html = html + '<td><select>'
+            //         for (var j = 0; j < objects3.length; j++) {
+            //             var object33 = objects3[j];
+            //             html = html + '<option>' + object33.title + '</option>'
+            //         }
+            //         html = html + '</select></td>';
+            //         html = html + '<td>' + object2.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
+            //         html = html + '<td>' + object2.time + '</td>';
+            //         html = html + '<td>' + object2.content + '</td>';
+            //         html = html + '</tr>';
+            //     }
+            //     html = html + '</table>';
+            //     document.getElementById('result').innerHTML = html;
+            // }
 
 
 
