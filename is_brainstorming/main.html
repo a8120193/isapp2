@@ -39,8 +39,9 @@
 
             var sql4 = `select * from Items inner join I_G on Items.id = I_G.itemid`; //グループごとのテーブルを検索する文
             var objects4 = await osql.connect(sql4);
+            console.log(objects4);
 
-            グループごとにテーブル表示する
+            //グループごとにテーブル表示する
             for (var k = 0; k < objects3.length; k++) {
                 var object3 = objects3[k];
                 var html = '';
@@ -52,8 +53,9 @@
                 html = html + '<td>' + '入力時間' + '</td>';
                 html = html + '<td>' + '意見' + '</td>';
                 html = html + '</tr>';
-                for (var i = 0; i < objects2.length; i++) {
+                for (var i = 0; i < objects4.length; i++) {
                     var object2 = objects2[i];
+                    var object4 = objects4[i];
                     html = html + '<tr>';
                     html = html + '<td><select>'
                     for (var j = 0; j < objects3.length; j++) {
@@ -61,9 +63,9 @@
                         html = html + '<option>' + object33.title + '</option>'
                     }
                     html = html + '</select></td>';
-                    html = html + '<td>' + object2.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
-                    html = html + '<td>' + object2.time + '</td>';
-                    html = html + '<td>' + object2.content + '</td>';
+                    html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
+                    html = html + '<td>' + object4.time + '</td>';
+                    html = html + '<td>' + object4.content + '</td>';
                     html = html + '</tr>';
                 }
                 html = html + '</table>';
@@ -74,31 +76,31 @@
 
 
 
-            var html = '';
-            html = html + '<h1>未設定</h1>';
-            html = html + '<table border = "1">';
-            html = html + '<tr>';
-            html = html + '<td>' + 'グループ' + '</td>';
-            html = html + '<td>' + '投稿者名' + '</td>';
-            html = html + '<td>' + '入力時間' + '</td>';
-            html = html + '<td>' + '意見' + '</td>';
-            html = html + '</tr>';
-            for (var i = 0; i < objects2.length; i++) {
-                var object2 = objects2[i];
-                html = html + '<tr>';
-                html = html + '<td><select id = ' + themeid + '>'
-                for (var j = 0; j < objects3.length; j++) {
-                    var object3 = objects3[j];
-                    html = html + '<option id =' + object3.id + '>' + object3.title + '</option>'
-                }
-                html = html + '</select></td>';
-                html = html + '<td>' + object2.userid + '</td>';
-                html = html + '<td>' + object2.time + '</td>';
-                html = html + '<td>' + object2.content + '</td>';
-                html = html + '</tr>';
-            }
-            html = html + '</table>';
-            document.getElementById('result').innerHTML = html;
+            // var html2 = '';
+            // html2 = html2 + '<h1>未設定</h1>';
+            // html2 = html2 + '<table border = "1">';
+            // html2 = html2 + '<tr>';
+            // html2 = html2 + '<td>' + 'グループ' + '</td>';
+            // html2 = html2 + '<td>' + '投稿者名' + '</td>';
+            // html2 = html2 + '<td>' + '入力時間' + '</td>';
+            // html2 = html2 + '<td>' + '意見' + '</td>';
+            // html2 = html2 + '</tr>';
+            // for (var i = 0; i < objects2.length; i++) {
+            //     var object2 = objects2[i];
+            //     html2 = html2 + '<tr>';
+            //     html2 = html2 + '<td><select id = ' + themeid + '>'
+            //     for (var j = 0; j < objects3.length; j++) {
+            //         var object3 = objects3[j];
+            //         html2 = html2 + '<option id =' + object3.id + '>' + object3.title + '</option>'
+            //     }
+            //     html2 = html2 + '</select></td>';
+            //     html2 = html2 + '<td>' + object2.userid + '</td>';
+            //     html2 = html2 + '<td>' + object2.time + '</td>';
+            //     html2 = html2 + '<td>' + object2.content + '</td>';
+            //     html2 = html2 + '</tr>';
+            // }
+            // html = html + '</table>';
+            // document.getElementById('result').innerHTML = html2;
         };
 
 
