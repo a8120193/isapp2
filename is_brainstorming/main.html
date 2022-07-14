@@ -34,17 +34,17 @@
             var objects2 = await osql.connect(sql2);
 
             var sql3 = `select * from Groups`;
-            var objects3 = await osql.connect(sql3);
+            var groups = await osql.connect(sql3);
 
 
             // グループごとにテーブル表示する
-            for (var k = 0; k < objects3.length; k++) {
-                var object3 = objects3[k];
+            for (var k = 0; k < groups.length; k++) {
+                var group = groups[k];
                 var sql4 = `select * from Items inner join I_G on Items.id = I_G.itemid`; //グループごとのテーブルを検索する文
                 var objects4 = await osql.connect(sql4);
 
                 var html = '';
-                html = html + '<h1>' + object3.title + '</h1>';
+                html = html + '<h1>' + group.title + '</h1>';
                 html = html + '<table border = "1">';
                 html = html + '<tr>';
                 html = html + '<td>' + 'グループ' + '</td>';
@@ -58,18 +58,18 @@
                     var object4 = objects4[i];
                     html = html + '<tr>';
 
-                    html = html + '<td><select id="group1">';
+                    html = html + `<td><select id="group_${object4.id}">`;
                     html = html + '<option value = 0>未選択</option>';
 
-                    for (var j = 0; j < objects3.length; j++) {
-                        var object33 = objects3[j];
-                        html = html + '<option value = ' + object3.id + '>' + object33.title + '</option>';
+                    for (var j = 0; j < groups.length; j++) {
+                        var groupin = groups[j];
+                        html = html + '<option value = ' + groupin.id + '>' + groupin.title + '</option>';
                     }
 
                     html = html + '</select></td>';
 
 
-                    html = html + '<td>' + `<button onclick= "runButtonPressed_henkou('${object4.id}') ">` + '変更</button>' + '</td>';
+                    html = html + '<td>' + `<button onclick= "runButtonPressed_henkou(${object4.id}, ${}) ">` + '変更</button>' + '</td>';
 
                     html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
                     html = html + '<td>' + object4.time + '</td>';
@@ -152,8 +152,8 @@
         async function runButtonPressed_henkou(i) {
             // var groupid = document.getElementById("group1").value;
 
-            // var groupid = $("#group1").val();
-            // console.log(groupid);
+            var groupid = $("#group1").val();
+            console.log(groupid);
 
             // var groupidoption = document.getElementById("group1").options;
             // for (var l = 0, m = options.length; m > l; l++) {
