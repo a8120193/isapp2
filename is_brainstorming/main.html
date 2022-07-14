@@ -69,7 +69,7 @@
                     html = html + '</select></td>';
 
 
-                    html = html + '<td>' + `<button onclick= "runButtonPressed_henkou(${object4.id}, ${}) ">` + '変更</button>' + '</td>';
+                    html = html + '<td>' + `<button onclick= "runButtonPressed_henkou(${object4.id}) ">` + '変更</button>' + '</td>';
 
                     html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
                     html = html + '<td>' + object4.time + '</td>';
@@ -149,10 +149,10 @@
 
         }
 
-        async function runButtonPressed_henkou(i) {
+        async function runButtonPressed_henkou(itemid) {
             // var groupid = document.getElementById("group1").value;
 
-            var groupid = $("#group1").val();
+            var groupid = $(`#group_${itemid}`).val();
             console.log(groupid);
 
             // var groupidoption = document.getElementById("group1").options;
@@ -164,7 +164,7 @@
             // }
 
 
-            var sql7 = `insert into I_G (groupid, itemid) values ("${groupid}", "${i}")`;
+            var sql7 = `insert into I_G (groupid, itemid) values ("${groupid}", "${itemid}")`;
             var objects7 = await osql.connect(sql7);
         }
 
