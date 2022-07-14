@@ -41,8 +41,10 @@
             var html = '';
             for (var k = 0; k < groups.length; k++) {
                 var group = groups[k];
-                var sql4 = `select * from Items inner join I_G on Items.id = I_G.itemid where I_G.groupid = ${k}`; //グループごとのテーブルを検索する文
+                // var sql4 = `select * from Items inner join I_G on Items.id = I_G.itemid where I_G.groupid = ${group.id}`; //グループごとのテーブルを検索する文
+                var sql4 = `select * from Items where groupid = ${group.id}`;
                 var objects4 = await osql.connect(sql4);
+                console.log(objects4);
 
 
                 html = html + '<h2>' + group.title + '</h2>';
@@ -165,7 +167,7 @@
 
         }
 
-        async function runButtonPressed_henkou(itemid) {
+        async function runButtonPressed_sakujo(itemid) {
 
         }
 
@@ -184,8 +186,18 @@
             // }
 
 
-            var sql7 = `insert into I_G (groupid, itemid) values ("${groupid}", "${itemid}")`;
+            var sql7 = `insert into I_G (groupid, itemid) values (${groupid}, ${itemid})`;
             var objects7 = await osql.connect(sql7);
+
+            var sql8 = `update Items set groupid = ${groupid} where id = ${itemid}`;
+            var objects8 = await osql.connect(sql8);
+            var sql9 = `select * from Items where id = ${itemid}`;
+            var objects9 = await osql.connect(sql9);
+
+
+            // if (objects9[0].groupid == 0) {
+
+            // }
         }
 
     </script>
