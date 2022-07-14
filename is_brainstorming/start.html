@@ -10,19 +10,19 @@
         osql.requireLogin();
 
         $(document).ready(function () {
-            init();
+            // init();
             id2();
             setInterval(id2, 2000);
         });
 
-        async function init() {
-            var me = await osql.getMe();
-            var id = me.id;
-            var name = me.fname + ' ' + me.lname;
-            var sql = `insert ignore into Users values('${id}', '${name}')`;
-            var users = await osql.connect(sql);
+        // async function init() {
+        //     var me = await osql.getMe();
+        //     var id = me.id;
+        //     var name = me.fname + ' ' + me.lname;
+        //     var sql = `insert ignore into Users values('${id}', '${name}')`;
+        //     var users = await osql.connect(sql);
 
-        }
+        // }
 
         async function id2() {
             var me = await osql.getMe();
