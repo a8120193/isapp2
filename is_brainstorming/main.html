@@ -41,7 +41,7 @@
             var html = '';
             for (var k = 0; k < groups.length; k++) {
                 var group = groups[k];
-                var sql4 = `select * from Items inner join I_G on Items.id = I_G.itemid`; //グループごとのテーブルを検索する文
+                var sql4 = `select * from Items inner join I_G on Items.id = I_G.itemid where I_G.groupid = ${k}`; //グループごとのテーブルを検索する文
                 var objects4 = await osql.connect(sql4);
 
 
@@ -50,6 +50,7 @@
                 html = html + '<tr>';
                 html = html + '<td>' + 'グループ' + '</td>';
                 html = html + '<td>' + '変更' + '</td>';
+                html = html + '<td>' + '削除' + '</td>';
                 html = html + '<td>' + '投稿者名' + '</td>';
                 html = html + '<td>' + '入力時間' + '</td>';
                 html = html + '<td>' + '意見' + '</td>';
@@ -66,11 +67,10 @@
                         var groupin = groups[j];
                         html = html + '<option value = ' + groupin.id + '>' + groupin.title + '</option>';
                     }
-
                     html = html + '</select></td>';
 
-
                     html = html + '<td>' + `<button onclick= "runButtonPressed_henkou(${object4.id}) ">` + '変更</button>' + '</td>';
+                    html = html + '<td>' + `<button onclick= "runButtonPressed_sakujo(${object4.id}) ">` + '削除</button>' + '</td>';
 
                     html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
                     html = html + '<td>' + object4.time + '</td>';
@@ -83,34 +83,43 @@
                 document.getElementById('result').innerHTML = html;
             }
 
-            // var html = '';
-            // html = html + '<h1>未設定</h1>';
-            // html = html + '<table border = "1">';
-            // html = html + '<tr>';
-            // html = html + '<td>' + 'グループ' + '</td>';
-            // html = html + '<td>' + '投稿者名' + '</td>';
-            // html = html + '<td>' + '入力時間' + '</td>';
-            // html = html + '<td>' + '意見' + '</td>';
-            // html = html + '</tr>';
-            // for (var i = 0; i < objects2.length; i++) {
-            //     var object2 = objects2[i];
-            //     html = html + '<tr>';
-            //     html = html + '<td><select>'
-            //     for (var j = 0; j < objects3.length; j++) {
-            //         var object3 = objects3[j];
-            //         html = html + '<option>' + object3.title + '</option>'
-            //     }
-            //     html = html + '</select></td>';
-            //     html = html + '<td>' + object2.userid + '</td>';
-            //     html = html + '<td>' + object2.time + '</td>';
-            //     html = html + '<td>' + object2.content + '</td>';
-            //     html = html + '</tr>';
-            // }
-            // html = html + '</table>';
-            // document.getElementById('result').innerHTML = html;
+            var html2 = '';
+            html2 = html2 + '<h1>全て</h1>';
+            html2 = html2 + '<table border = "1">';
+            html2 = html2 + '<tr>';
+            html2 = html2 + '<td>' + 'グループ' + '</td>';
+            html2 = html2 + '<td>' + '変更' + '</td>';
+            html2 = html2 + '<td>' + '削除' + '</td>';
+            html2 = html2 + '<td>' + '投稿者名' + '</td>';
+            html2 = html2 + '<td>' + '入力時間' + '</td>';
+            html2 = html2 + '<td>' + '意見' + '</td>';
+            html2 = html2 + '</tr>';
+            for (var l = 0; l < objects2.length; l++) {
+                var object2 = objects2[l];
+                html2 = html2 + '<tr>';
 
-            // var sql7 = `insert into  I_G (groupid , itemid) values ("${object5}", "${object6}")`;
-            // var objects7 = await osql.connect(sql7);
+                html2 = html2 + `<td><select id="group_${object2.id}">`;
+                html2 = html2 + '<option value = 0>未選択</option>';
+
+                for (var m = 0; m < groups.length; m++) {
+                    var groupin = groups[m];
+                    html2 = html2 + '<option value = ' + groupin.id + '>' + groupin.title + '</option>';
+                }
+                html2 = html2 + '</select></td>';
+
+                html2 = html2 + '<td>' + `<button onclick= "runButtonPressed_henkou(${object2.id}) ">` + '変更</button>' + '</td>';
+                html2 = html2 + '<td>' + `<button onclick= "runButtonPressed_sakujo(${object2.id}) ">` + '削除</button>' + '</td>';
+
+                html2 = html2 + '<td>' + object2.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
+                html2 = html2 + '<td>' + object2.time + '</td>';
+                html2 = html2 + '<td>' + object2.content + '</td>';
+                html2 = html2 + '</tr>';
+
+            }
+
+            html2 = html2 + '</table>';
+            document.getElementById('result2').innerHTML = html2;
+
 
         };
 
@@ -127,7 +136,7 @@
 
             var content = document.getElementById('tf2').value;
             var userid = me.fname + ' ' + me.lname;
-            var sql = `insert into Items (userid, content, themeid) values ("${userid}", "${content}", "${themeid}")`;
+            var sql = `insert into Items (userid, content, themeid, d_id) values ("${userid}", "${content}", "${themeid}", 0)`;
             var objects = await osql.connect(sql);
             tf2.value = '';
         }
@@ -147,6 +156,10 @@
             // var objects5 = await osql.connect(sql5);
             // var groupid = objects5[0].id;
             tf3.value = '';
+
+        }
+
+        async function runButtonPressed_henkou(itemid) {
 
         }
 
@@ -186,6 +199,7 @@
     <br>
 
     <p id='result'></p>
+    <p id='result2'></p>
 </body>
 
 </html>
