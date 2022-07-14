@@ -23,8 +23,8 @@
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
 
-            var sql = `insert ignore into Users values('${id}', '${name}')`;
-            var user = await osql.connect(sql);
+            // var sql = `insert ignore into Users values('${id}', '${name}')`;
+            // var user = await osql.connect(sql);
 
             document.getElementById('welcome').innerHTML = 'テーマ「' + themename + '」';
 
