@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="../lib/jquery.min.js"></script>
     <script type="text/javascript" src="../lib/osql.js"></script>
+    <title>ブレインストーミング支援システム</title>
     <script>
         osql.requireLogin();
 
@@ -30,7 +31,7 @@
 
             document.getElementById('welcome').innerHTML = 'テーマ「' + themename + '」';
 
-            var sql2 = `select * from Items where themeid = ${themeid}`;
+            var sql2 = `select * from Items where themeid = ${themeid} AND groupid = 0`;
             var objects2 = await osql.connect(sql2);
 
             var sql3 = `select * from Groups where themeid = ${themeid}`; //themeidをGroupsテーブルに追加したい
@@ -46,59 +47,56 @@
                 var objects4 = await osql.connect(sql4);
                 console.log(objects4);
 
-
                 html = html + '<h2>' + group.title + '</h2>';
                 html = html + '<table border = "1">';
                 html = html + '<tr>';
+                html = html + '<td>' + '意見' + '</td>';
+                html = html + '<td>' + '投稿者名' + '</td>';
                 html = html + '<td>' + 'グループ' + '</td>';
                 html = html + '<td>' + '変更' + '</td>';
-                html = html + '<td>' + '削除' + '</td>';
-                html = html + '<td>' + '投稿者名' + '</td>';
-                html = html + '<td>' + '入力時間' + '</td>';
-                html = html + '<td>' + '意見' + '</td>';
+                // html = html + '<td>' + '入力時間' + '</td>';
                 html = html + '</tr>';
                 for (var i = 0; i < objects4.length; i++) {
-                    var object2 = objects2[i];
                     var object4 = objects4[i];
                     html = html + '<tr>';
-
+                    html = html + '<td>' + object4.content + '</td>';
+                    html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
                     html = html + `<td><select id="group_${object4.id}">`;
                     html = html + '<option value = 0>未選択</option>';
 
                     for (var j = 0; j < groups.length; j++) {
                         var groupin = groups[j];
-                        html = html + '<option value = ' + groupin.id + '>' + groupin.title + '</option>';
+                        if (k == j) {
+                            html = html + '<option value = ' + groupin.id + ' selected>' + groupin.title + '</option>';
+
+                        } else {
+                            html = html + '<option value = ' + groupin.id + '>' + groupin.title + '</option>';
+                        }
                     }
                     html = html + '</select></td>';
-
                     html = html + '<td>' + `<button onclick= "runButtonPressed_henkou(${object4.id}) ">` + '変更</button>' + '</td>';
-                    html = html + '<td>' + `<button onclick= "runButtonPressed_sakujo(${object4.id}) ">` + '削除</button>' + '</td>';
-
-                    html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
-                    html = html + '<td>' + object4.time + '</td>';
-                    html = html + '<td>' + object4.content + '</td>';
                     html = html + '</tr>';
-
                 }
-
                 html = html + '</table>';
                 document.getElementById('result').innerHTML = html;
             }
 
             var html2 = '';
-            html2 = html2 + '<h2>全て</h2>';
+            html2 = html2 + '<h2>未選択</h2>';
             html2 = html2 + '<table border = "1">';
             html2 = html2 + '<tr>';
+            html2 = html2 + '<td>' + '意見' + '</td>';
+            html2 = html2 + '<td>' + '投稿者名' + '</td>';
             html2 = html2 + '<td>' + 'グループ' + '</td>';
             html2 = html2 + '<td>' + '変更' + '</td>';
-            html2 = html2 + '<td>' + '削除' + '</td>';
-            html2 = html2 + '<td>' + '投稿者名' + '</td>';
-            html2 = html2 + '<td>' + '入力時間' + '</td>';
-            html2 = html2 + '<td>' + '意見' + '</td>';
+            // html2 = html2 + '<td>' + '入力時間' + '</td>';
+
             html2 = html2 + '</tr>';
             for (var l = 0; l < objects2.length; l++) {
                 var object2 = objects2[l];
                 html2 = html2 + '<tr>';
+                html2 = html2 + '<td>' + object2.content + '</td>';
+                html2 = html2 + '<td>' + object2.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
 
                 html2 = html2 + `<td><select id="group_${object2.id}">`;
                 html2 = html2 + '<option value = 0>未選択</option>';
@@ -110,11 +108,11 @@
                 html2 = html2 + '</select></td>';
 
                 html2 = html2 + '<td>' + `<button onclick= "runButtonPressed_henkou(${object2.id}) ">` + '変更</button>' + '</td>';
-                html2 = html2 + '<td>' + `<button onclick= "runButtonPressed_sakujo(${object2.id}) ">` + '削除</button>' + '</td>';
 
-                html2 = html2 + '<td>' + object2.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
-                html2 = html2 + '<td>' + object2.time + '</td>';
-                html2 = html2 + '<td>' + object2.content + '</td>';
+
+
+                // html2 = html2 + '<td>' + object2.time + '</td>';
+
                 html2 = html2 + '</tr>';
 
             }
@@ -167,11 +165,10 @@
 
         }
 
-        async function runButtonPressed_sakujo(itemid) {
 
-        }
 
         async function runButtonPressed_henkou(itemid) {
+
             // var groupid = document.getElementById("group1").value;
 
             var groupid = $(`#group_${itemid}`).val();
@@ -194,16 +191,19 @@
             var sql9 = `select * from Items where id = ${itemid}`;
             var objects9 = await osql.connect(sql9);
 
+            id2();
+        }
 
-            // if (objects9[0].groupid == 0) {
-
-            // }
+        async function runButtonPressed_kousin() {
+            id2();
         }
 
     </script>
 </head>
 
 <body>
+    <h3>ブレインストーミング支援システム　ブレちゃん</h3>
+    <hr>
     <h1 id="welcome"> </h1>
     意見
     <br>
@@ -214,7 +214,9 @@
     <br>
     <input id="tf3" type="textfield">
     <button id="group" onclick="runButtonPressed_group()">作成</button>
+    <button onclick="runButtonPressed_kousin()">更新</button>
     <br>
+    <hr>
 
     <p id='result'></p>
     <p id='result2'></p>
