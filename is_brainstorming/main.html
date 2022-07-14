@@ -136,7 +136,7 @@
 
             var content = document.getElementById('tf2').value;
             var userid = me.fname + ' ' + me.lname;
-            var sql = `insert into Items (userid, content, themeid, d_id) values ("${userid}", "${content}", "${themeid}", 0)`;
+            var sql = `insert into Items (userid, content, themeid, groupid) values ("${userid}", "${content}", "${themeid}", 0)`;
             var objects = await osql.connect(sql);
             tf2.value = '';
         }
