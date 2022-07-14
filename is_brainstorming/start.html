@@ -20,7 +20,7 @@
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
             var sql = `insert ignore into Users values('${id}', '${name}')`;
-            var objects = await osql.connect(sql);
+            var users = await osql.connect(sql);
 
         }
 
@@ -31,31 +31,24 @@
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
             var sql = `insert ignore into Users values('${id}', '${name}')`;
-            var objects = await osql.connect(sql);
+            var users = await osql.connect(sql);
 
             var sql2 = `select * from Theme`;
-            var objects2 = await osql.connect(sql2);
+            var themes = await osql.connect(sql2);
 
             var html = '';
             html = html + '<table border = "1">';
             html = html + '<tr>';
             html = html + '<td>' + 'テーマ名' + '</td>';
             html = html + '</tr>';
-            for (var i = 0; i < objects2.length; i++) {
-                var object2 = objects2[i];
+            for (var i = 0; i < themes.length; i++) {
+                var theme = themes[i];
                 html = html + '<tr>';
-                html = html + '<td>' + '<a href="main.html?name=' + object2.name + '">' + object2.name + '</a></td>';
+                html = html + '<td>' + '<a href="main.html?name=' + theme.name + '">' + theme.name + '</a></td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
-
-
-            // var themeid = object2.id;
-            // var themename = object2.name;
-            // console.log(themename);
-            // console.log(themeid);
-
         };
 
 
@@ -67,7 +60,7 @@
             var group = document.getElementById('tf2').value;
 
             var sql = `insert into Theme (name) values ("${group}")`;
-            var objects = await osql.connect(sql);
+            var theme_group = await osql.connect(sql);
         }
 
 

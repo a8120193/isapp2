@@ -20,32 +20,32 @@
             console.log(me);
 
             var themename = osql.getParam('name');
-
-            var sql3 = `select * from Theme where name = "${themename}"`;
-            var objects3 = await osql.connect(sql3);
-            var themeid = objects3[0].id;
             var id = me.id;
             var name = me.fname + ' ' + me.lname;
+
             var sql = `insert ignore into Users values('${id}', '${name}')`;
-            var objects = await osql.connect(sql);
+            var user = await osql.connect(sql);
 
             document.getElementById('welcome').innerHTML = 'テーマ「' + themename + '」';
 
-            var sql2 = `select * from Items where themeid = ${themeid} AND groupid = 0`;
-            var objects2 = await osql.connect(sql2);
+            var sql2 = `select * from Theme where name = "${themename}"`;
+            var theme = await osql.connect(sql2);
+            var themeid = theme[0].id;
 
-            var sql3 = `select * from Groups where themeid = ${themeid}`; //themeidをGroupsテーブルに追加したい
-            var groups = await osql.connect(sql3);
+            var sql3 = `select * from Items where themeid = ${themeid} AND groupid = 0`;
+            var items = await osql.connect(sql3);
+
+            var sql4 = `select * from Groups where themeid = ${themeid}`; //themeidをGroupsテーブルに追加したい
+            var groups = await osql.connect(sql4);
 
 
             // グループごとにテーブル表示する
             var html = '';
             for (var k = 0; k < groups.length; k++) {
                 var group = groups[k];
-                // var sql4 = `select * from Items inner join I_G on Items.id = I_G.itemid where I_G.groupid = ${group.id}`; //グループごとのテーブルを検索する文
-                var sql4 = `select * from Items where groupid = ${group.id}`;
-                var objects4 = await osql.connect(sql4);
-                console.log(objects4);
+                var sql5 = `select * from Items where groupid = ${group.id}`;
+                var itemsin = await osql.connect(sql5);
+                console.log(itemsin);
 
                 html = html + '<h2>' + group.title + '</h2>';
                 html = html + '<table border = "1">';
@@ -54,14 +54,13 @@
                 html = html + '<td>' + '投稿者名' + '</td>';
                 html = html + '<td>' + 'グループ' + '</td>';
                 html = html + '<td>' + '変更' + '</td>';
-                // html = html + '<td>' + '入力時間' + '</td>';
                 html = html + '</tr>';
-                for (var i = 0; i < objects4.length; i++) {
-                    var object4 = objects4[i];
+                for (var i = 0; i < itemsin.length; i++) {
+                    var itemin = itemsin[i];
                     html = html + '<tr>';
-                    html = html + '<td>' + object4.content + '</td>';
-                    html = html + '<td>' + object4.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
-                    html = html + `<td><select id="group_${object4.id}">`;
+                    html = html + '<td>' + itemin.content + '</td>';
+                    html = html + '<td>' + itemin.userid + '</td>';
+                    html = html + `<td><select id="group_${itemin.id}">`;
                     html = html + '<option value = 0>未選択</option>';
 
                     for (var j = 0; j < groups.length; j++) {
@@ -74,7 +73,7 @@
                         }
                     }
                     html = html + '</select></td>';
-                    html = html + '<td>' + `<button onclick= "runButtonPressed_henkou(${object4.id}) ">` + '変更</button>' + '</td>';
+                    html = html + '<td>' + `<button onclick= "runButtonPressed_henkou(${itemin.id}) ">` + '変更</button>' + '</td>';
                     html = html + '</tr>';
                 }
                 html = html + '</table>';
@@ -89,16 +88,14 @@
             html2 = html2 + '<td>' + '投稿者名' + '</td>';
             html2 = html2 + '<td>' + 'グループ' + '</td>';
             html2 = html2 + '<td>' + '変更' + '</td>';
-            // html2 = html2 + '<td>' + '入力時間' + '</td>';
-
             html2 = html2 + '</tr>';
-            for (var l = 0; l < objects2.length; l++) {
-                var object2 = objects2[l];
+            for (var l = 0; l < items.length; l++) {
+                var item = items[l];
                 html2 = html2 + '<tr>';
-                html2 = html2 + '<td>' + object2.content + '</td>';
-                html2 = html2 + '<td>' + object2.userid + '</td>'; //sql4作ったらobjectを変える。グループごとのテーブル表示。
+                html2 = html2 + '<td>' + item.content + '</td>';
+                html2 = html2 + '<td>' + item.userid + '</td>';
 
-                html2 = html2 + `<td><select id="group_${object2.id}">`;
+                html2 = html2 + `<td><select id="group_${item.id}">`;
                 html2 = html2 + '<option value = 0>未選択</option>';
 
                 for (var m = 0; m < groups.length; m++) {
@@ -106,21 +103,11 @@
                     html2 = html2 + '<option value = ' + groupin.id + '>' + groupin.title + '</option>';
                 }
                 html2 = html2 + '</select></td>';
-
-                html2 = html2 + '<td>' + `<button onclick= "runButtonPressed_henkou(${object2.id}) ">` + '変更</button>' + '</td>';
-
-
-
-                // html2 = html2 + '<td>' + object2.time + '</td>';
-
+                html2 = html2 + '<td>' + `<button onclick= "runButtonPressed_henkou(${item.id}) ">` + '変更</button>' + '</td>';
                 html2 = html2 + '</tr>';
-
             }
-
             html2 = html2 + '</table>';
             document.getElementById('result2').innerHTML = html2;
-
-
         };
 
         async function runButtonPressed() {
@@ -130,19 +117,18 @@
             id2();
 
             var themename = osql.getParam('name');
-            var sql3 = `select * from Theme where name = "${themename}"`;
-            var objects3 = await osql.connect(sql3);
-            var themeid = objects3[0].id;
+            var sql = `select * from Theme where name = "${themename}"`;
+            var theme = await osql.connect(sql);
+            var themeid = theme[0].id;
 
             var content = document.getElementById('tf2').value;
             var userid = me.fname + ' ' + me.lname;
-            var sql = `insert into Items (userid, content, themeid, groupid) values ("${userid}", "${content}", "${themeid}", 0)`;
-            var objects = await osql.connect(sql);
+            var sql2 = `insert into Items (userid, content, themeid, groupid) values ("${userid}", "${content}", "${themeid}", 0)`;
+            var item = await osql.connect(sql2);
             tf2.value = '';
         }
 
         async function runButtonPressed_group() {
-
             var me = await osql.getMe();
             console.log(me);
 
@@ -150,46 +136,27 @@
 
             var themename = osql.getParam('name');
 
-            var sql3 = `select * from Theme where name = "${themename}"`;
-            var objects3 = await osql.connect(sql3);
-            var themeid = objects3[0].id;
+            var sql = `select * from Theme where name = "${themename}"`;
+            var theme = await osql.connect(sql);
+            var themeid = theme[0].id;
 
             var title = document.getElementById('tf3').value;
-            var sql4 = `insert into Groups (title, themeid) values ("${title}", ${themeid})`;
-            var objects4 = await osql.connect(sql4);
+            var sql2 = `insert into Groups (title, themeid) values ("${title}", ${themeid})`;
+            var group = await osql.connect(sql2);
 
-            // var sql5 = `select * from Groups where title = "${title}"`
-            // var objects5 = await osql.connect(sql5);
-            // var groupid = objects5[0].id;
             tf3.value = '';
-
         }
 
 
 
         async function runButtonPressed_henkou(itemid) {
-
-            // var groupid = document.getElementById("group1").value;
-
             var groupid = $(`#group_${itemid}`).val();
             console.log(groupid);
 
-            // var groupidoption = document.getElementById("group1").options;
-            // for (var l = 0, m = options.length; m > l; l++) {
-            //     if (options[l].selected) {
-            //         groupid = options[l].value;
-            //         console.log(groupid)
-            //     }
-            // }
-
-
-            var sql7 = `insert into I_G (groupid, itemid) values (${groupid}, ${itemid})`;
-            var objects7 = await osql.connect(sql7);
-
-            var sql8 = `update Items set groupid = ${groupid} where id = ${itemid}`;
-            var objects8 = await osql.connect(sql8);
-            var sql9 = `select * from Items where id = ${itemid}`;
-            var objects9 = await osql.connect(sql9);
+            var sql = `update Items set groupid = ${groupid} where id = ${itemid}`;
+            var update = await osql.connect(sql);
+            var sql2 = `select * from Items where id = ${itemid}`;
+            var items = await osql.connect(sql2);
 
             id2();
         }
